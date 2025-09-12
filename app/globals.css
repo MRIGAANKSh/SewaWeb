@@ -120,3 +120,44 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+/* ===== Strong Recharts SVG fill blocker (paste at very end of globals.css) ===== */
+/* Aggressively clear fills for Recharts SVG elements so area-fill bugs disappear. */
+.recharts-wrapper,
+.recharts-surface,
+.recharts-wrapper svg,
+.recharts-wrapper svg * {
+  background: transparent !important;
+}
+
+/* Clear fills on common shapes (path, rect, polygon) */
+.recharts-wrapper svg path,
+.recharts-wrapper svg rect,
+.recharts-wrapper svg polygon,
+.recharts-wrapper svg circle,
+.recharts-wrapper svg g,
+.recharts-wrapper svg polyline {
+  fill: none !important;
+}
+
+/* Specific Recharts classes */
+.recharts-area,
+.recharts-area path,
+.recharts-area .recharts-curve,
+.recharts-area .recharts-area-curve,
+.recharts-line .recharts-curve,
+.recharts-curve,
+.recharts-surface > path,
+.recharts-surface > rect {
+  fill: none !important;
+  /* allow stroke to show from the element if present */
+}
+
+/* Remove any inline fill attribute on paths/rects inside recharts-wrapper */
+.recharts-wrapper svg [fill]:not([fill="none"]) {
+  fill: none !important;
+}
+
+/* If some element absolutely requires a background, you can target it later more narrowly.
+   For now this guarantees no filled blob will appear under charts. */
